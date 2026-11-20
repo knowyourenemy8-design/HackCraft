@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#101722">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon.svg" type="image/svg+xml"> initial-scale=1.0">
 <meta name="theme-color" content="#101722">
 <title>HackCraft | Learn. Create. Fix. Share.</title>
 <style>
@@ -272,6 +275,13 @@ document.querySelectorAll(".category").forEach(el=>{
 });
 
 render();
+</script><script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .catch(error => console.error("Service worker:", error));
+  });
+}
 </script>
 </body>
   </html>
