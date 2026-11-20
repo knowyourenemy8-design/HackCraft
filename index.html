@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101722">
+<title>HackCraft | Learn. Create. Fix. Share.</title>
+<style>
+:root {
+  --blue:#087cf0;
+  --yellow:#ffc928;
+  --dark:#101722;
+  --light:#f3f5f8;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--dark);
+}
+header {
+  background:var(--dark);
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.logo {font-size:25px;font-weight:900}
+.logo span {color:var(--yellow)}
+nav a {
+  color:white;
+  text-decoration:none;
+  margin-left:18px;
+  font-size:14px;
+}
+.hero {
+  background:linear-gradient(120deg,#101722,#174c83);
+  color:white;
+  text-align:center;
+  padding:75px 20px;
+}
+.hero h1 {font-size:clamp(36px,7vw,60px);margin:0 0 15px}
+.hero h1 span {color:var(--yellow)}
+.hero p {font-size:18px;color:#d5e3f4}
+.btn {
+  background:var(--yellow);
+  color:var(--dark);
+  padding:14px 24px;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  display:inline-block;
+  text-decoration:none;
+}
+section {padding:35px 6%}
+.section-title {font-size:27px;margin-bottom:20px}
+.categories {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+  gap:12px;
+}
+.category {
+  background:white;
+  border-radius:12px;
+  padding:20px 10px;
+  text-align:center;
+  cursor:pointer;
+  border:2px solid transparent;
+}
+.category:hover,.category.active {
+  border-color:var(--blue);
+}
+.category .emoji {font-size:32px}
+.category strong {display:block;margin-top:8px}
+.search {
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:16px;
+  margin-bottom:20px;
+}
+.projects {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.project {
+  background:white;
+  border-radius:13px;
+  overflow:hidden;
+  box-shadow:0 3px 12px #00000010;
+}
+.project-art {
+  min-height:130px;
+  display:grid;
+  place-items:center;
+  font-size:55px;
+  background:linear-gradient(135deg,#d9eaff,#ffe9a4);
+}
+.project-info {padding:17px}
+.project-info p {color:#667085;font-size:14px}
+.project-info button {
+  border:0;
+  padding:10px 13px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.view {background:var(--blue);color:white}
+.save {background:#edf1f6;color:var(--dark)}
+footer {
+  background:var(--dark);
+  color:white;
+  text-align:center;
+  padding:30px 15px;
+}
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:10;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+.modal-content {
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  max-width:450px;
+  width:100%;
+  max-height:85vh;
+  overflow:auto;
+}
+.close {float:right;cursor:pointer;font-size:24px}
+@media(max-width:600px) {
+  nav a {margin-left:9px;font-size:12px}
+  header {padding:15px 4%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">HACK<span>CRAFT</span></div>
+  <nav>
+    <a href="#discover">Discover</a>
+    <a href="#projects">Projects</a>
+    <a href="#saved">Saved</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Make it. Fix it. <span>Hack it.</span></h1>
+  <p>Discover ideas. Learn new skills. Create something amazing.</p>
+  <a href="#discover" class="btn">EXPLORE PROJECTS</a>
+</div>
+
+<section id="discover">
+  <h2 class="section-title">Explore Categories</h2>
+  <div class="categories" id="categories">
+    <div class="category active" data-category="All"><div class="emoji">🔥</div><strong>All Projects</strong></div>
+    <div class="category" data-category="Home Fixes"><div class="emoji">🏠</div><strong>Home Fixes</strong></div>
+    <div class="category" data-category="Life Hacks"><div class="emoji">💡</div><strong>Life Hacks</strong></div>
+    <div class="category" data-category="Crafts"><div class="emoji">🎨</div><strong>DIY Crafts</strong></div>
+    <div class="category" data-category="Woodworking"><div class="emoji">🪚</div><strong>Woodworking</strong></div>
+    <div class="category" data-category="Upcycling"><div class="emoji">♻️</div><strong>Upcycling</strong></div>
+    <div class="category" data-category="Hobbies"><div class="emoji">🛠️</div><strong>Hobbies</strong></div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 class="section-title">Discover Projects</h2>
+  <input class="search" id="search" placeholder="🔎 Search DIY projects and ideas...">
+  <div class="projects" id="projectList"></div>
+</section>
+
+<section id="saved">
+  <h2 class="section-title">⭐ My Saved Projects</h2>
+  <div id="savedList" class="projects"></div>
+</section>
+
+<footer>
+  <div class="logo">HACK<span>CRAFT</span></div>
+  <p>Learn. Create. Fix. Share.</p>
+  <p>DIY made easy for everyone.</p>
+  <small>© 2026 HackCraft</small>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">✕</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const projects = [
+ {id:1,title:"DIY Pallet Furniture",category:"Woodworking",emoji:"🪑",level:"Beginner",cost:"Low",steps:["Find a clean, heat-treated pallet.","Remove nails and sand rough surfaces.","Measure and cut the pieces.","Assemble securely with suitable screws.","Finish with paint or wood sealant."]},
+ {id:2,title:"Easy Home Organization",category:"Home Fixes",emoji:"🏠",level:"Beginner",cost:"Low",steps:["Choose an area to organize.","Measure the available space.","Choose suitable storage containers.","Arrange items by category.","Label containers for easy access."]},
+ {id:3,title:"Creative Mason Jar Decor",category:"Crafts",emoji:"🎨",level:"Beginner",cost:"Low",steps:["Clean and dry a glass jar.","Choose paint, ribbon, or decorations.","Decorate the outside.","Allow everything to dry.","Use as a decorative holder."]},
+ {id:4,title:"Everyday Cable Organizer",category:"Life Hacks",emoji:"🔌",level:"Beginner",cost:"Low",steps:["Gather reusable cable ties or clips.","Group cables by device.","Attach clips to a suitable surface.","Route cables without tight bends.","Keep electrical connections accessible."]},
+ {id:5,title:"Upcycled Planter",category:"Upcycling",emoji:"🌱",level:"Beginner",cost:"Low",steps:["Choose a suitable clean container.","Make drainage holes if appropriate.","Add suitable potting mix.","Plant your chosen greenery.","Water according to plant needs."]},
+ {id:6,title:"Build a Small Tool Holder",category:"Woodworking",emoji:"🔨",level:"Intermediate",cost:"Medium",steps:["Plan the holder dimensions.","Measure and cut suitable wood.","Sand all edges.","Assemble with appropriate fasteners.","Secure it safely before use."]},
+ {id:7,title:"Custom Art Project",category:"Hobbies",emoji:"🖌️",level:"Beginner",cost:"Low",steps:["Choose your canvas or surface.","Gather paints and brushes.","Sketch your design.","Add color and details.","Allow it to dry completely."]}
+];
+
+let selected="All";
+let saved=JSON.parse(localStorage.getItem("hackcraftSaved")||"[]");
+
+function render() {
+ const query=document.getElementById("search").value.toLowerCase();
+ const filtered=projects.filter(p=>
+ (selected==="All"||p.category===selected)&&
+ p.title.toLowerCase().includes(query));
+ document.getElementById("projectList").innerHTML=
+ filtered.map(p=>card(p)).join("")||"<p>No projects found.</p>";
+ document.getElementById("savedList").innerHTML=
+ projects.filter(p=>saved.includes(p.id)).map(p=>card(p)).join("")||"<p>No saved projects yet. Explore and save some!</p>";
+}
+
+function card(p) {
+ return `<article class="project">
+ <div class="project-art">${p.emoji}</div>
+ <div class="project-info">
+ <small>${p.category} · ${p.level}</small>
+ <h3>${p.title}</h3>
+ <p>Estimated cost: ${p.cost}</p>
+ <button class="view" onclick="showProject(${p.id})">View Guide</button>
+ <button class="save" onclick="toggleSave(${p.id})">${saved.includes(p.id)?"★ Saved":"☆ Save"}</button>
+ </div></article>`;
+}
+
+function toggleSave(id) {
+ saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+ localStorage.setItem("hackcraftSaved",JSON.stringify(saved));
+ render();
+}
+
+function showProject(id) {
+ const p=projects.find(x=>x.id===id);
+ document.getElementById("modalBody").innerHTML=`
+ <h2>${p.emoji} ${p.title}</h2>
+ <p>${p.category} · ${p.level} · Estimated cost: ${p.cost}</p>
+ <h3>Step-by-step guide</h3>
+ <ol>${p.steps.map(s=>`<li style="margin:12px 0">${s}</li>`).join("")}</ol>
+ <p><strong>Safety first:</strong> Use appropriate protective equipment and follow tool and material safety instructions.</p>`;
+ document.getElementById("modal").style.display="flex";
+}
+
+function closeModal() {
+ document.getElementById("modal").style.display="none";
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.querySelectorAll(".category").forEach(el=>{
+ el.addEventListener("click",()=>{
+ selected=el.dataset.category;
+ document.querySelectorAll(".category").forEach(c=>c.classList.remove("active"));
+ el.classList.add("active");
+ render();
+ });
+});
+
+render();
+</script>
+</body>
+  </html>
+  
