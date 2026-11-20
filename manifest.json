@@ -1,0 +1,19 @@
+
+{
+  "name": "HackCraft - DIY Community",
+  "short_name": "HackCraft",
+  "description": "Learn, create, fix and share DIY projects and life hacks.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101722",
+  "theme_color": "#101722",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
